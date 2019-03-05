@@ -1,0 +1,18 @@
+import { TITLES }
+
+const initalState = {
+    titles: [],
+    isFetching: false
+}
+
+const titlesHandler = (state = initalState, action) => {
+
+    switch (action.type) {
+        case TITLES.LOAD:
+            return {
+
+            }
+    }
+}
+
+export default titlesHandler
