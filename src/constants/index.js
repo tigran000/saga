@@ -1,1 +1,3 @@
-export const TITLES_LOAD = {
+export const TITLES_LOAD = 'TITLES_LOAD';
+export const TITLES_SUCCESS = 'TITLES_SUCCESS';
+export const TITLES_FAILER = 'TITLES_FAILURE';

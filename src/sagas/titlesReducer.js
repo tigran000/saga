@@ -1,4 +1,4 @@
-import { TITLES }
+import * as actions from '../
 
 const initalState = {
     titles: [],
