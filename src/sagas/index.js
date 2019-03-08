@@ -1,10 +1,10 @@
-import {all, fork } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 
-import watchLoadTitlesRequest from './titleSaga'
+import watchLoadTitlesRequest from './userSaga'
+import watchLoginRequest from './loginSaga'
 
 
 export default function* root() {
-    yield all([
-        fork(watchLoadTitlesRequest)
-    ])
+    yield call(watchLoginRequest)
+    yield call(watchLoadTitlesRequest)
 }

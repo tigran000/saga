@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { Route, Switch } from 'react-router-dom';
 
-import { loadTitlesRequest } from './actions';
+import LoginForm from './components/LoginForm/LoginForm';
+import Admin from './components/Admin/Admin'
 
 class App extends Component {
-
   render() {
-    console.log(this.props)
     return (
-      <div>
-        <button onClick={() => this.props.dispatch(loadTitlesRequest())}> Get Titles </button>
-      </div>
-    );
+      <Switch>
+        <Route exact path="/" component = {LoginForm}/>
+        <Route exact path="/admin" component = {Admin}/>
+        <Route render={
+          () => (<h1> Not found Page</h1>)
+        } />
+      </Switch>
+    )
   }
 }
 
-export default connect(state => ({
-  a1: state
-}))(App);
+export default App;
