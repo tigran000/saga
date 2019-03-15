@@ -21,18 +21,21 @@ const initalState = {
 }
 
 const User = (state = initalState, action) => {
-    console.log(action)
     switch (action.type) {
         case GET_USER_REQUEST:
             return {
                 ...state,
                 isFetching: true,
+                isAuthenticated: false,
                 error: null
             }
         case GET_USER_SUCCESS:
             return {
                 ...state,
+                isAuthenticated: true,
                 isFetching: false,
+                name: action.user.userName,
+                isAdmin: action.user.isAdmin,
             }
         case GET_USER_FAILURE:
             return {
@@ -50,8 +53,8 @@ const User = (state = initalState, action) => {
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: true,
                 isFetching: false,
+                isAuthenticated: true,
                 name: action.user.userName,
                 isAdmin: action.user.isAdmin,
             }

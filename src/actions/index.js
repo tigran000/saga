@@ -4,9 +4,9 @@ export const getUserRequest = () => ({
     type: types.GET_USER_REQUEST
 });
 
-export const getUserSuccess = titles => ({
+export const getUserSuccess = user => ({
     type: types.GET_USER_SUCCESS,
-    titles
+    user
 });
 
 export const getUserFailure = error => ({
@@ -14,10 +14,12 @@ export const getUserFailure = error => ({
     error
 });
 
-export const loginRequest = (credentials) => ({
-    type: types.LOGIN_REQUEST,
-    credentials
-});
+export const loginRequest = (credentials) => {
+    return {
+        type: types.LOGIN_REQUEST,
+        credentials
+    }
+};
 
 export const loginSuccess = user => ({
     type: types.LOGIN_SUCCESS,
@@ -29,6 +31,10 @@ export const loginFailure = error => ({
     error
 });
 
+export const logout = () => ({
+    type: types.LOGOUT
+});
+
 export const resetError = () => ({
     type: types.RESET_ERROR
-})
+});

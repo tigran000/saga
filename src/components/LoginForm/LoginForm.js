@@ -4,7 +4,7 @@ import {
   Form, Icon, Input, Button
 } from 'antd';
 import { connect } from 'react-redux';
-
+import { withRouter } from 'react-router-dom';
 import {
   loginRequest,
   resetError
@@ -15,13 +15,11 @@ class NormalLoginForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, credentials) => {
-      if (!err) {
-        this.props.loginRequest(credentials)
-      }
-    });
+      this.props.loginRequest(credentials)
+    })
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     if (this.props.error) {
       Swal.fire({
         title: 'Error!',
@@ -35,11 +33,6 @@ class NormalLoginForm extends Component {
   }
 
   render() {
-
-    if (this.props.isAuthenticated) {
-      this.props.isAdmin ? this.props.history.push('/admin') :
-        this.props.history.push('/teacher');
-    }
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className="login-form" >
@@ -71,10 +64,11 @@ class NormalLoginForm extends Component {
 
 const LoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
 
-const f1 = state => ({
+const mapStateToProps = state => ({
   error: state.user.error,
   isFetching: state.user.isFetching,
   isAdmin: state.user.isAdmin,
   isAuthenticated: state.user.isAuthenticated
 });
-export default connect(f1, { loginRequest, resetError })(LoginForm);
+
+export default withRouter(connect(mapStateToProps, { loginRequest, resetError })(LoginForm));

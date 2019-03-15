@@ -1,21 +1,16 @@
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
 
-import LoginForm from './components/LoginForm/LoginForm';
-import Admin from './components/Admin/Admin'
+const App = ({ isFetching }) => (
+  isFetching
+    ? <h1>Lօading</h1>
+    : <Layout />
+)
 
-class App extends Component {
-  render() {
-    return (
-      <Switch>
-        <Route exact path="/" component = {LoginForm}/>
-        <Route exact path="/admin" component = {Admin}/>
-        <Route render={
-          () => (<h1> Not found Page</h1>)
-        } />
-      </Switch>
-    )
-  }
-}
+const mapStateToProps = state => ({
+  isFetching: state.user.isFetching
+});
 
-export default App;
+export default withRouter(connect(mapStateToProps)(App));

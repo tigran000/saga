@@ -1,16 +1,17 @@
-import { put, take, call } from 'redux-saga/effects';
+import { put, take, fork } from 'redux-saga/effects';
 import axios from 'axios';
 import {
-    getUserRequest,
     getUserSuccess,
     getUserFailure
 } from '../actions';
 
+import { GET_USER_REQUEST } from '../constants'
+
 export function* getUser() {
     try {
-        const result = yield axios.get('https://jsonplaceholder.typicode.com/posts');
-        console.log(result)
-        yield put(getUserSuccess(result.data))
+        const Authorization = 'Bearer '.concat(localStorage.getItem('token'));
+        const { data: { user } } = yield axios.get('http://localhost:8000/user/profile', { headers: { Authorization } });
+        yield put(getUserSuccess(user))
     } catch (error) {
         yield put(getUserFailure(error))
     }
@@ -18,7 +19,7 @@ export function* getUser() {
 
 export default function* watchGetUserRequest() {
     while (true) {
-        yield take(getUserRequest)
-        yield call(getUser)
+        yield take(GET_USER_REQUEST)
+        yield fork(getUser)
     }
 }
